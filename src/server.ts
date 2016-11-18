@@ -37,7 +37,7 @@ app.get('/api/latest/imagesearch/', async (req, res, next) => {
     try {
         let mongoService = container.get(MongoService);
         let searches = await mongoService.getSearchesCollection();
-        return res.json(await searches.find().limit(10).sort({ when: -1 }).toArray());
+        return res.json(await searches.find({},{ _id: 0 }).limit(10).sort({ when: -1 }).toArray());
     }
     catch (err) {
         return next(err);
